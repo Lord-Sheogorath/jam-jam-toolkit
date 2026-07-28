@@ -35,12 +35,12 @@ namespace LordSheo.JJTK
 		[Button]
 		private void MatchCurrentHealthToMaxHealth()
 		{
-			if (stats.TryGetValue(StatType.MaxHealth, out var max) == false)
+			if (stats.TryGetValue(StatType.max_health, out var max) == false)
 			{
-				stats[StatType.MaxHealth] = max = 100;
+				stats[StatType.max_health] = max = 100;
 			}
 
-			stats[StatType.CurrentHealth] = max;
+			stats[StatType.current_health] = max;
 		}
 #endif
 	}
