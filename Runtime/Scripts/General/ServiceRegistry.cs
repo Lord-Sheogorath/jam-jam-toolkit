@@ -55,7 +55,4 @@ namespace LordSheo.JJTK
 			return _systems.ContainsKey(type);
 		}
 	}
-	public class SystemRegistry : ServiceRegistry<ISystem>
-	{
-	}
 }
