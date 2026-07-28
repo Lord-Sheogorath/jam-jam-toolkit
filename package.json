@@ -1,0 +1,12 @@
+{
+  "name": "com.lord-sheo.jam-jam-toolkit",
+  "displayName": "LordSheo - Jam Jam Toolkit",
+  "version": "0.0.1",
+  "description": "",
+  "author": {
+    "name": "LordSheo"
+  },
+  "contributors": [],
+  "keywords": [],
+  "dependencies": {"com.unity.nuget.newtonsoft-json":"3.2.2"}
+}
