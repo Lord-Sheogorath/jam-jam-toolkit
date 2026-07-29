@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LordSheo.JJTK
 {
+	[CreateAssetMenu(menuName = "LordSheo/JJTK/" + nameof(ResourceDefinitions))]
 	public class ResourceDefinitions : ScriptableObject
 	{
 		[System.Serializable]
