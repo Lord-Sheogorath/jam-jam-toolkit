@@ -17,6 +17,7 @@ namespace LordSheo.JJTK
 			var healthSystem = new DefaultHealthSystem(statSystem);
 			var targetSystem = new DefaultTargetSystem();
 			var actionSystem = new DefaultUnitActionSystem(_unit);
+			var combatSystem = new DefaultCombatSystem();
 			var signalSystem = new DefaultSignalSystem();
 			
 			_unit.AddSystem<IStatSystem, DefaultStatSystem>(statSystem);
@@ -24,6 +25,7 @@ namespace LordSheo.JJTK
 			_unit.AddSystem<IHealthSystem, DefaultHealthSystem>(healthSystem);
 			_unit.AddSystem<ITargetSystem, DefaultTargetSystem>(targetSystem);
 			_unit.AddSystem<IUnitActionSystem, DefaultUnitActionSystem>(actionSystem);
+			_unit.AddSystem<ICombatSystem, DefaultCombatSystem>(combatSystem);
 			_unit.AddSystem<ISignalSystem, DefaultSignalSystem>(signalSystem);
 		}
 	}
@@ -39,7 +41,7 @@ namespace LordSheo.JJTK
 		public IHealthSystem HealthSystem => GetSystem<IHealthSystem>();
 
 		public ITargetSystem TargetSystem => GetSystem<ITargetSystem>();
-		public CombatController CombatController { get; private set; }
+		public ICombatSystem CombatSystem => GetSystem<ICombatSystem>();
 		public IUnitActionSystem ActionSystem => GetSystem<IUnitActionSystem>();
 
 		public Transform Root => root;
@@ -56,11 +58,6 @@ namespace LordSheo.JJTK
 			{
 				root = transform.parent ?? transform;
 			}
-		}
-
-		private void Awake()
-		{
-			CombatController = GetComponent<CombatController>();
 		}
 
 		private void Update()
