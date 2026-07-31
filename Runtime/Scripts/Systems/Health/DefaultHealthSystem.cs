@@ -18,6 +18,7 @@ namespace LordSheo.JJTK
 		public DefaultHealthSystem(IStatSystem stat)
 		{
 			_stat = stat;
+			_stat.Set(StatType.max_health, 100);
 
 			stat.OnChangedEvent += OnStatChanged;
 		}

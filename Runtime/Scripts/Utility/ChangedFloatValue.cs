@@ -9,5 +9,10 @@
 
 		public float previous;
 		public float current;
+		
+		public string ToDisplayString()
+		{
+			return $"{{(type: {type}), (request: {requestedAmount}), (actual: {actualAmount}), (prev: {previous}), (current: {current})}}";
+		}
 	}
 }
