@@ -2,16 +2,22 @@
 {
 	public interface IHealthSystem : ISystem
 	{
-		event System.Action<int> OnDamagedEvent;
-		event System.Action<int> OnHealedEvent;
+		event System.Action<ChangedIntValue> OnDamagedEvent;
+		event System.Action<ChangedIntValue> OnHealedEvent;
 		event System.Action OnChangedEvent;
 		event System.Action OnDeathEvent;
 
-		int GetMax();
-		int GetCurrent();
+		int Max { get; }
+		int Current { get; }
+		bool Alive{ get; }
+		
+		void SetMax(int value);
 		void SetCurrent(int value);
 
 		void Damage(int amount);
 		void Heal(int amount);
+
+		void Kill();
+		void Revive();
 	}
 }

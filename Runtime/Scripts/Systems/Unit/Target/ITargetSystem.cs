@@ -5,6 +5,6 @@ namespace LordSheo.JJTK
 {
 	public interface ITargetSystem : ISystem
 	{
-		IEnumerable<UnitController> Find(Transform point, float range);
+		IEnumerable<UnitController> Find(Vector3 point, float range);
 	}
 }

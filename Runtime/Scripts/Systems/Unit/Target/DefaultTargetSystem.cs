@@ -18,7 +18,7 @@ namespace LordSheo.JJTK
 		
 		private readonly List<Cache> _cache = new();
 		
-		public IEnumerable<UnitController> Find(Transform point, float range)
+		public IEnumerable<UnitController> Find(Vector3 point, float range)
 		{
 			var cache = _cache.FirstOrDefault(c => Mathf.Approximately(range, c.range));
 
@@ -33,7 +33,7 @@ namespace LordSheo.JJTK
 			return cache.units;
 		}
 		
-		private Cache CreateCache(Transform point, float range)
+		private Cache CreateCache(Vector3 point, float range)
 		{
 			var cache = new Cache()
 			{
@@ -41,7 +41,7 @@ namespace LordSheo.JJTK
 				time = Time.realtimeSinceStartup,
 			};
 
-			var colliders = Physics.OverlapSphere(point.position, range);
+			var colliders = Physics.OverlapSphere(point, range);
 			
 			foreach (var hit in colliders)
 			{

@@ -31,17 +31,6 @@ namespace LordSheo.JJTK
 				UnityEditor.EditorUtility.SetDirty(this);
 			}
 		}
-
-		[Button]
-		private void MatchCurrentHealthToMaxHealth()
-		{
-			if (stats.TryGetValue(StatType.max_health, out var max) == false)
-			{
-				stats[StatType.max_health] = max = 100;
-			}
-
-			stats[StatType.current_health] = max;
-		}
 #endif
 	}
 }
