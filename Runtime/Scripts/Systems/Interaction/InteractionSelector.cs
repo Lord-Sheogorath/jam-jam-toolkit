@@ -4,12 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace LordSheo.JJTK
 {
-	public interface IInteractable
-	{
-		void Interact();
-	}
-
-	public class InteractableSelector : MonoBehaviour
+	public class InteractionSelector : MonoBehaviour
 	{
 		public LayerMask mask;
 		
@@ -40,11 +35,11 @@ namespace LordSheo.JJTK
 			// Perform the raycast
 			if (Physics.Raycast(ray, out hit, float.MaxValue, mask))
 			{
-				var interactable = hit.transform.GetComponentInParent<IInteractable>();
+				var interactable = hit.transform.GetComponentInParent<IInteraction>();
 
 				if (interactable != null)
 				{
-					interactable.Interact();
+					interactable.Select();
 				}
 			}
 		}
