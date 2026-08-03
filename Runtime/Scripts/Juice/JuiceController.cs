@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
@@ -28,6 +29,7 @@ namespace LordSheo.JJTK
 		public event System.Action OnBeforeExecuteEvent;
 		public event System.Action OnAfterExecuteEvent;
 
+		private CancellationTokenSource _cancellationTokenSource = new();
 		private readonly JuiceSequenceAction _sequenceAction = new();
 
 		private void Awake()
@@ -96,10 +98,20 @@ namespace LordSheo.JJTK
 		[Button]
 		public void DOExecute()
 		{
-			_ = Execute();
+			DOCancel();
+			
+			_cancellationTokenSource = new();
+			_ = Execute(_cancellationTokenSource.Token);
+		}
+
+		[Button]
+		public void DOCancel()
+		{
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource?.Dispose();
 		}
 		
-		public virtual async UniTask Execute()
+		public virtual async UniTask Execute(CancellationToken token)
 		{
 			if (Application.isPlaying == false)
 			{
@@ -108,7 +120,7 @@ namespace LordSheo.JJTK
 			
 			if (delayOnExecute > float.Epsilon)
 			{
-				await Task.Delay(TimeSpan.FromSeconds(delayOnExecute));
+				await UniTask.Delay(TimeSpan.FromSeconds(delayOnExecute), DelayType.DeltaTime, cancellationToken: token);
 			}
 			
 			_sequenceAction.actions.Clear();
@@ -116,7 +128,7 @@ namespace LordSheo.JJTK
 			_sequenceAction.parallel = executeInParallel;
 			
 			OnBeforeExecuteEvent?.Invoke();
-			await _sequenceAction.Execute();
+			await _sequenceAction.Execute(token);
 			OnAfterExecuteEvent?.Invoke();
 		}
 	}

@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -22,7 +24,7 @@ namespace LordSheo.JJTK
 		public float fadeOutValue = 0;
 		public Ease fadeOutEase = Ease.OutSine;
 
-		public async UniTask Execute()
+		public async UniTask Execute(CancellationToken token)
 		{
 			source.Play();
 
@@ -41,8 +43,18 @@ namespace LordSheo.JJTK
 			sequence.Append(tween);
 
 			sequence.Play();
-			
-			await sequence.AwaitForComplete();
+
+			try
+			{
+				await sequence.AwaitForComplete(TweenCancelBehaviour.KillAndCancelAwait, token);
+			}
+			finally
+			{
+				if (source != null && token.IsCancellationRequested)
+				{
+					source.Stop();
+				}
+			}
 		}
 	}
 }

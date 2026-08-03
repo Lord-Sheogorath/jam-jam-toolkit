@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace LordSheo.JJTK
 		
 		public event System.Action OnDestroyEvent;
 		
-		public UniTask Execute()
+		public UniTask Execute(CancellationToken token)
 		{
 			if (target == null)
 			{

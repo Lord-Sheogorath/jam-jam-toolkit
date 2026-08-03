@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace LordSheo.JJTK
 		public Transform target;
 		public List<GameObject> prefabs = new();
 		
-		public UniTask Execute()
+		public UniTask Execute(CancellationToken token)
 		{
 			foreach (var prefab in prefabs)
 			{

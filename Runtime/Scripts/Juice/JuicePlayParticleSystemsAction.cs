@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
@@ -27,7 +28,7 @@ namespace LordSheo.JJTK
 		}
 #endif
 		
-		public UniTask Execute()
+		public UniTask Execute(CancellationToken token)
 		{
 			foreach (var sys in systems)
 			{
