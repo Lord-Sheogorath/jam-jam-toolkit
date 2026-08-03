@@ -4,8 +4,8 @@ namespace LordSheo.JJTK
 {
 	public class DefaultHealthSystem : IHealthSystem
 	{
-		public event System.Action<ChangedIntValue> OnDamagedEvent;
-		public event System.Action<ChangedIntValue> OnHealedEvent;
+		public event System.Action<IHealthSystem.Change> OnDamagedEvent;
+		public event System.Action<IHealthSystem.Change> OnHealedEvent;
 		public event System.Action OnChangedEvent;
 		public event System.Action OnDeathEvent;
 
@@ -70,7 +70,7 @@ namespace LordSheo.JJTK
 			}
 		}
 		
-		public void Damage(int amount)
+		public void Damage(UnitController sender, int amount)
 		{
 			if (Alive == false)
 			{
@@ -80,7 +80,7 @@ namespace LordSheo.JJTK
 			var clampedAmount = Mathf.Max(0, amount);
 			clampedAmount = Mathf.Min(Current, clampedAmount);
 
-			var change = new ChangedIntValue()
+			var changedValue = new ChangedIntValue()
 			{
 				type = ChangedNumValueType.Remove,
 				
@@ -91,13 +91,13 @@ namespace LordSheo.JJTK
 			};
 			
 			var current = Current;
-			current -= change.actualAmount;
+			current -= changedValue.actualAmount;
 
 			SetCurrent(current, true);
 
-			change.current = Current;
+			changedValue.current = Current;
 			
-			OnDamagedEvent?.Invoke(change);
+			OnDamagedEvent?.Invoke(new(sender, changedValue));
 			OnChangedEvent?.Invoke();
 
 			if (Alive == false)
@@ -106,7 +106,7 @@ namespace LordSheo.JJTK
 			}
 		}
 
-		public void Heal(int amount)
+		public void Heal(UnitController sender, int amount)
 		{
 			if (Alive == false)
 			{
@@ -116,7 +116,7 @@ namespace LordSheo.JJTK
 			var clampedAmount = Mathf.Max(0, amount);
 			clampedAmount = Mathf.Min(Max - Current, clampedAmount);
 			
-			var change = new ChangedIntValue()
+			var changedValue = new ChangedIntValue()
 			{
 				type = ChangedNumValueType.Add,
 				
@@ -127,16 +127,16 @@ namespace LordSheo.JJTK
 			};
 			
 			var current = Current;
-			current += change.actualAmount;
+			current += changedValue.actualAmount;
 
 			SetCurrent(current, true);
 
-			change.current = Current;
+			changedValue.current = Current;
 
-			OnHealedEvent?.Invoke(change);
+			OnHealedEvent?.Invoke(new(sender, changedValue));
 			OnChangedEvent?.Invoke();
 		}
-
+		
 		private int ClampCurrent(int current)
 		{
 			return Mathf.Clamp(current, 0, Max);
