@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace LordSheo.JJTK
 {
-	public class InteractionSelector : MonoBehaviour
+	public class InteractionPointerSelector : MonoBehaviour
 	{
 		public LayerMask mask;
-		
+
 		public void Update()
 		{
 			if (Pointer.current == null)
@@ -29,7 +30,7 @@ namespace LordSheo.JJTK
 			}
 			
 			// Create a ray from the camera through the mouse position
-			Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+			Ray ray = Camera.main.ScreenPointToRay(Pointer.current.position.value);
 			RaycastHit hit;
 
 			// Perform the raycast
