@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -9,9 +10,9 @@ namespace LordSheo.JJTK
 	{
 		public float delay;
 		
-		public async Task Execute()
+		public async UniTask Execute()
 		{
-			await Task.Delay(TimeSpan.FromSeconds(delay));
+			await UniTask.Delay(TimeSpan.FromSeconds(delay));
 		}
 	}
 }

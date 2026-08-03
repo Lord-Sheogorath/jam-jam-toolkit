@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -11,12 +12,12 @@ namespace LordSheo.JJTK
 		public AudioSource source;
 		public List<AudioClip> clips = new();
 		
-		public async Task Execute()
+		public async UniTask Execute()
 		{
 			var clip = clips.Random();
 			source.PlayOneShot(clip);
 
-			await Task.Delay(TimeSpan.FromSeconds(clip.length));
+			await UniTask.Delay(TimeSpan.FromSeconds(clip.length));
 		}
 	}
 }

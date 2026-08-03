@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace LordSheo.JJTK
 		}
 #endif
 		
-		public Task Execute()
+		public UniTask Execute()
 		{
 			foreach (var sys in systems)
 			{
@@ -34,7 +35,7 @@ namespace LordSheo.JJTK
 				sys.Play(true);
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

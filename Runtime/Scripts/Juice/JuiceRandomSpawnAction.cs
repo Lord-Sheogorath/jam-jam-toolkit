@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -12,7 +13,7 @@ namespace LordSheo.JJTK
 		public Transform target;
 		public List<GameObject> prefabs = new();
 		
-		public Task Execute()
+		public UniTask Execute()
 		{
 			var prefab = prefabs.Random();
 			var instance = GameObject.Instantiate(prefab, createAsChild ? target : null);
@@ -22,7 +23,7 @@ namespace LordSheo.JJTK
 				instance.transform.position = target.position;
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

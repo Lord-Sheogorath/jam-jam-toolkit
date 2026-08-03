@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace LordSheo.JJTK
 {
 	public interface IJuiceAction
 	{
-		Task Execute();
+		UniTask Execute();
 	}
 }

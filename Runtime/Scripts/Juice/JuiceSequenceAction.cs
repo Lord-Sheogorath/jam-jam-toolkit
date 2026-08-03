@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -11,7 +12,7 @@ namespace LordSheo.JJTK
 		public List<IJuiceAction> actions = new();
 		public bool parallel = false;
 		
-		public async Task Execute()
+		public async UniTask Execute()
 		{
 			if (parallel)
 			{
@@ -23,9 +24,9 @@ namespace LordSheo.JJTK
 			}
 		}
 
-		private async Task ExecuteParallel()
+		private async UniTask ExecuteParallel()
 		{
-			var tasks = new Task[actions.Count];
+			var tasks = new UniTask[actions.Count];
 
 			for (var index = 0; index < actions.Count; index++)
 			{
@@ -34,9 +35,9 @@ namespace LordSheo.JJTK
 				tasks[index] = action.Execute();
 			}
 
-			await Task.WhenAll(tasks);
+			await UniTask.WhenAll(tasks);
 		}
-		private async Task ExecuteSequence()
+		private async UniTask ExecuteSequence()
 		{
 			foreach (var action in actions)
 			{

@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -9,7 +12,8 @@ namespace LordSheo.JJTK
 		IJuiceAction
 	{
 		[SerializeReference]
-		public IJuiceAction action;
+		public List<IJuiceAction> actions = new();
+		public bool executeInParallel = false;
 
 		[Header("TIMING")]
 		public float delayOnExecute = 0;
@@ -23,6 +27,8 @@ namespace LordSheo.JJTK
 
 		public event System.Action OnBeforeExecuteEvent;
 		public event System.Action OnAfterExecuteEvent;
+
+		private readonly JuiceSequenceAction _sequenceAction = new();
 
 		private void Awake()
 		{
@@ -87,25 +93,30 @@ namespace LordSheo.JJTK
 			}
 		}
 
+		[Button]
 		public void DOExecute()
 		{
 			_ = Execute();
 		}
 		
-		public virtual async Task Execute()
+		public virtual async UniTask Execute()
 		{
 			if (Application.isPlaying == false)
 			{
 				return;
 			}
-
+			
 			if (delayOnExecute > float.Epsilon)
 			{
 				await Task.Delay(TimeSpan.FromSeconds(delayOnExecute));
 			}
 			
+			_sequenceAction.actions.Clear();
+			_sequenceAction.actions.AddRange(actions);
+			_sequenceAction.parallel = executeInParallel;
+			
 			OnBeforeExecuteEvent?.Invoke();
-			await action.Execute();
+			await _sequenceAction.Execute();
 			OnAfterExecuteEvent?.Invoke();
 		}
 	}

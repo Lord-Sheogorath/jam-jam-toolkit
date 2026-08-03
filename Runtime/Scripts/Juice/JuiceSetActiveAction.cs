@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -9,11 +10,11 @@ namespace LordSheo.JJTK
 		public GameObject target;
 		public bool activeState = false;
 		
-		public Task Execute()
+		public UniTask Execute()
 		{
 			target.SetActive(activeState);
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

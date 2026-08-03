@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -12,11 +13,11 @@ namespace LordSheo.JJTK
 		
 		public event System.Action OnDestroyEvent;
 		
-		public Task Execute()
+		public UniTask Execute()
 		{
 			if (target == null)
 			{
-				return Task.CompletedTask;
+				return UniTask.CompletedTask;
 			}
 				
 			OnDestroyEvent?.Invoke();
@@ -26,7 +27,7 @@ namespace LordSheo.JJTK
 				GameObject.Destroy(target);
 			}
 			
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }

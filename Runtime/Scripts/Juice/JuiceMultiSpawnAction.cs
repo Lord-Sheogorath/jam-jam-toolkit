@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -12,7 +13,7 @@ namespace LordSheo.JJTK
 		public Transform target;
 		public List<GameObject> prefabs = new();
 		
-		public Task Execute()
+		public UniTask Execute()
 		{
 			foreach (var prefab in prefabs)
 			{
@@ -24,7 +25,7 @@ namespace LordSheo.JJTK
 				}
 			}
 
-			return Task.CompletedTask;
+			return UniTask.CompletedTask;
 		}
 	}
 }
