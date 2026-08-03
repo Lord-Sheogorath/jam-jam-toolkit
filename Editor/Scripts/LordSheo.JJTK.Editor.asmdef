@@ -1,0 +1,18 @@
+{
+    "name": "LordSheo.JJTK.Editor",
+    "rootNamespace": "LordSheo.JJTK.Editor",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:e7d74b4738c7cc54b9608d20e7e5991d",
+        "GUID:a502d0953e4eaf24f87bbe89f4d3e300"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
