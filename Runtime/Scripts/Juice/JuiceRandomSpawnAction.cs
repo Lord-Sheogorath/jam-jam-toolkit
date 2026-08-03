@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
 {
-	public class JuiceSpawnAction : IJuiceAction
+	public class JuiceRandomSpawnAction : IJuiceAction
 	{
-		[Tooltip("If false, will spawn with no parent at THIS object's position.")]
+		[Tooltip("If false, will spawn with no parent at TARGET object's position.")]
 		public bool createAsChild;
 		public Transform target;
 		public List<GameObject> prefabs = new();
 		
-		public IEnumerator Execute()
+		public Task Execute()
 		{
 			var prefab = prefabs.Random();
 			var instance = GameObject.Instantiate(prefab, createAsChild ? target : null);
@@ -21,7 +22,7 @@ namespace LordSheo.JJTK
 				instance.transform.position = target.position;
 			}
 
-			yield break;
+			return Task.CompletedTask;
 		}
 	}
 }

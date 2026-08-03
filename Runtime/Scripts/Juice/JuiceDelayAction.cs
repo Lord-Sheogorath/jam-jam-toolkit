@@ -5,16 +5,13 @@ using UnityEngine;
 
 namespace LordSheo.JJTK
 {
-	public class JuiceToggleActiveAction : IJuiceAction
+	public class JuiceDelayAction : IJuiceAction
 	{
-		public GameObject target;
-		public float delay = 1f;
+		public float delay;
 		
 		public async Task Execute()
 		{
-			target.SetActive(!target.activeInHierarchy);
 			await Task.Delay(TimeSpan.FromSeconds(delay));
-			target.SetActive(!target.activeInHierarchy);
 		}
 	}
 }

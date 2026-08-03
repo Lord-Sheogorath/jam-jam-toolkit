@@ -1,24 +1,22 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
 {
 	public class JuiceDestroyAction : IJuiceAction
 	{
-		public float delay;
 		[Tooltip("Won't actually destroy the object.")]
 		public bool fake = false;
 		public GameObject target;
 		
 		public event System.Action OnDestroyEvent;
 		
-		public IEnumerator Execute()
+		public Task Execute()
 		{
-			yield return new WaitForSeconds(delay);
-			
 			if (target == null)
 			{
-				yield break;
+				return Task.CompletedTask;
 			}
 				
 			OnDestroyEvent?.Invoke();
@@ -27,6 +25,8 @@ namespace LordSheo.JJTK
 			{
 				GameObject.Destroy(target);
 			}
+			
+			return Task.CompletedTask;
 		}
 	}
 }

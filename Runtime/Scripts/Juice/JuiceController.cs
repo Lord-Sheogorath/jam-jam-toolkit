@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -88,28 +89,23 @@ namespace LordSheo.JJTK
 
 		public void DOExecute()
 		{
-			EnumeratorObject.Instance.StartCoroutine(Execute());
+			_ = Execute();
 		}
 		
-		public virtual IEnumerator Execute()
+		public virtual async Task Execute()
 		{
 			if (Application.isPlaying == false)
 			{
-				yield break;
+				return;
 			}
 
 			if (delayOnExecute > float.Epsilon)
 			{
-				yield return new WaitForSeconds(delayOnExecute);
+				await Task.Delay(TimeSpan.FromSeconds(delayOnExecute));
 			}
 			
-			yield return Execute_Internal();
-		}
-
-		private IEnumerator Execute_Internal()
-		{
 			OnBeforeExecuteEvent?.Invoke();
-			yield return action.Execute();
+			await action.Execute();
 			OnAfterExecuteEvent?.Invoke();
 		}
 	}

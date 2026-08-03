@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -20,11 +21,15 @@ namespace LordSheo.JJTK
 		public float fadeOutValue = 0;
 		public Ease fadeOutEase = Ease.OutSine;
 
-		public IEnumerator Execute()
+		public async Task Execute()
 		{
 			source.Play();
 
+			var taskCompletionSource = new TaskCompletionSource<bool>();
 			var sequence = DOTween.Sequence();
+
+			sequence.OnKill(() => taskCompletionSource.TrySetCanceled());
+			sequence.OnComplete(() => taskCompletionSource.SetResult(true));
 
 			var tween = DOTween.To(() => source.volume, val => source.volume = val, fadeInValue, fadeInDuration)
 				.SetTarget(source)
@@ -39,8 +44,8 @@ namespace LordSheo.JJTK
 			sequence.Append(tween);
 
 			sequence.Play();
-			
-			yield return sequence.WaitForCompletion();
+
+			await taskCompletionSource.Task;
 		}
 	}
 }

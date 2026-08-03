@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LordSheo.JJTK
@@ -8,10 +9,11 @@ namespace LordSheo.JJTK
 		public GameObject target;
 		public bool activeState = false;
 		
-		public IEnumerator Execute()
+		public Task Execute()
 		{
 			target.SetActive(activeState);
-			yield break;
+
+			return Task.CompletedTask;
 		}
 	}
 }
