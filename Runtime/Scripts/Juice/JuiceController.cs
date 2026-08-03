@@ -30,7 +30,6 @@ namespace LordSheo.JJTK
 		public event System.Action OnAfterExecuteEvent;
 
 		private CancellationTokenSource _cancellationTokenSource = new();
-		private readonly JuiceSequenceAction _sequenceAction = new();
 
 		private void Awake()
 		{
@@ -109,6 +108,7 @@ namespace LordSheo.JJTK
 		{
 			_cancellationTokenSource?.Cancel();
 			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
 		}
 		
 		public virtual async UniTask Execute(CancellationToken token)
@@ -122,13 +122,26 @@ namespace LordSheo.JJTK
 			{
 				await UniTask.Delay(TimeSpan.FromSeconds(delayOnExecute), DelayType.DeltaTime, cancellationToken: token);
 			}
-			
-			_sequenceAction.actions.Clear();
-			_sequenceAction.actions.AddRange(actions);
-			_sequenceAction.parallel = executeInParallel;
+
+			var sequence = new JuiceSequenceAction();
+			sequence.actions.AddRange(actions);
+			sequence.parallel = executeInParallel;
 			
 			OnBeforeExecuteEvent?.Invoke();
-			await _sequenceAction.Execute(token);
+			
+			try
+			{
+				await sequence.Execute(token);
+			}
+			catch (OperationCanceledException)
+			{
+				// Expected: object destroyed, interrupted, replaced, etc.
+			}
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+			}
+			
 			OnAfterExecuteEvent?.Invoke();
 		}
 	}
