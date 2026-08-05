@@ -3,25 +3,26 @@ using UnityEngine;
 
 namespace LordSheo.JJTK
 {
-	public abstract class InventoryCountUI : MonoBehaviour
+	public abstract class DefaultInventoryCountUI : MonoBehaviour,
+		IInventoryCountUI
 	{
 		public TextMeshProUGUI displayNameText;
 		public TextMeshProUGUI amountText;
 
-		protected abstract string ItemId { get; }
-		protected abstract BaseDefinition Definition { get; }
+		public abstract string ItemId { get; }
+		public abstract BaseDefinition Definition { get; }
         
-		protected IInventorySystem inventory;
+		public IInventorySystem Current { get; protected set; }
         
 		public virtual void Show(IInventorySystem inventory)
 		{
-			if (this.inventory != null)
+			if (Current != null)
 			{
-				this.inventory.OnChangedEvent -= OnInventoryChangedCallback;
+				Current.OnChangedEvent -= OnInventoryChangedCallback;
 			}
             
-			this.inventory = inventory;
-			this.inventory.OnChangedEvent += OnInventoryChangedCallback;
+			Current = inventory;
+			Current.OnChangedEvent += OnInventoryChangedCallback;
 
 			Refresh();
 		}
@@ -31,11 +32,11 @@ namespace LordSheo.JJTK
 			Refresh();
 		}
 
-		protected virtual void Refresh()
+		public virtual void Refresh()
 		{
 			displayNameText.text = Definition?.displayName ?? "UNKNOWN";
             
-			var owned = inventory.Get(ItemId);
+			var owned = Current.Get(ItemId);
             
 			if (owned == null)
 			{
