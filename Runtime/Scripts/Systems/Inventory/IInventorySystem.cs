@@ -5,17 +5,23 @@
 		gold,
 	}
 
+	public class InventoryItem
+	{
+		public string itemId;
+		public int amount;
+	}
+	
 	public interface IInventorySystem : ISystem
 	{
-		event System.Action<ResourceType, int> OnAddedEvent;
-		event System.Action<ResourceType, int> OnRemovedEvent;
-		event System.Action<ResourceType, int> OnChangedEvent;
+		event System.Action<string, ChangedIntValue> OnAddedEvent;
+		event System.Action<string, ChangedIntValue> OnRemovedEvent;
+		event System.Action<string, ChangedIntValue> OnChangedEvent;
 
-		bool Contains(ResourceType type);
-		int Get(ResourceType type);
-		void Set(ResourceType type, int value);
+		bool Contains(EnumString itemId);
+		InventoryItem Get(EnumString itemId);
+		void Set(EnumString itemId, int value);
 		
-		void Add(ResourceType type, int amount);
-		bool Remove(ResourceType type, int amount);
+		void Add(EnumString itemId, int amount);
+		bool Remove(EnumString itemId, int amount);
 	}
 }
