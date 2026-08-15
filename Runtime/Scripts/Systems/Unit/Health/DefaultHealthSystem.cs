@@ -13,6 +13,14 @@ namespace LordSheo.JJTK
 		public int Current { get; private set; }
 		public bool Alive => Current > 0;
 
+		public IHealthSystem Setup(int max, int current)
+		{
+			Max = max;
+			Current = current;
+
+			return this;
+		}
+		
 		public void SetMax(int value)
 		{
 			Max = value;

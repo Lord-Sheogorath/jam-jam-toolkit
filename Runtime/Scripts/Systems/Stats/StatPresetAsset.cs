@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LordSheo.JJTK
 {
-	[CreateAssetMenu(menuName = "GMTK2026/Asset/Stats/StatPreset")]
+	[CreateAssetMenu(menuName = Constants.CREATE_ASSET_PREFIX + "Stats/" + nameof(StatPresetAsset))]
 	public class StatPresetAsset : ScriptableObject
 	{
 		[System.Serializable]
