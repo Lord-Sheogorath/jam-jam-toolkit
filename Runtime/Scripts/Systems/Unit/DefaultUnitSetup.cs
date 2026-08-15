@@ -13,7 +13,7 @@ namespace LordSheo.JJTK
 			
 			var statSystem = new DefaultStatSystem();
 			var inventorySystem = new DefaultInventorySystem();
-			var healthSystem = new DefaultHealthSystem(statSystem);
+			var healthSystem = new DefaultHealthSystem();
 			var targetSystem = new DefaultTargetSystem();
 			var actionSystem = new DefaultUnitActionSystem(_unit);
 			var combatSystem = new DefaultCombatSystem();

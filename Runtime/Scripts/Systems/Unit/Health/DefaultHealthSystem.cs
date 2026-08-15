@@ -9,34 +9,14 @@ namespace LordSheo.JJTK
 		public event System.Action OnChangedEvent;
 		public event System.Action OnDeathEvent;
 
-		public int Max => (int)_stat.Get(StatType.max_health);
+		public int Max { get; private set; }
 		public int Current { get; private set; }
 		public bool Alive => Current > 0;
-		
-		private readonly IStatSystem _stat;
-		
-		public DefaultHealthSystem(IStatSystem stat)
-		{
-			_stat = stat;
-			_stat.Set(StatType.max_health, 100);
-
-			stat.OnChangedEvent += OnStatChanged;
-		}
-
-		private void OnStatChanged(StatType type, ChangedFloatValue change)
-		{
-			
-		}
 
 		public void SetMax(int value)
 		{
-			if (Alive == false)
-			{
-				return;
-			}
+			Max = value;
 			
-			_stat.Set(StatType.max_health, value);
-
 			if (Current > value)
 			{
 				SetCurrent(value, true);
