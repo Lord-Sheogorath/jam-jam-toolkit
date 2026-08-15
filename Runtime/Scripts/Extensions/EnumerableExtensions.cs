@@ -40,5 +40,27 @@ namespace LordSheo.JJTK
 
 			return value;
 		}
+
+		public static void AddToCurrentValue<TKey>(this IDictionary<TKey, int> source, TKey key, int value)
+		{
+			source.TryGetValue(key, out var current);
+			source[key] = current + value;
+		}
+		public static void SubtractFromCurrentValue<TKey>(this IDictionary<TKey, int> source, TKey key, int value)
+		{
+			source.TryGetValue(key, out var current);
+			source[key] = current - value;
+		}
+		
+		public static void AddToCurrentValue<TKey>(this IDictionary<TKey, float> source, TKey key, float value)
+		{
+			source.TryGetValue(key, out var current);
+			source[key] = current + value;
+		}
+		public static void SubtractFromCurrentValue<TKey>(this IDictionary<TKey, float> source, TKey key, float value)
+		{
+			source.TryGetValue(key, out var current);
+			source[key] = current - value;
+		}
 	}
 }
