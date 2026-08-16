@@ -16,9 +16,9 @@
 			return _currentAction;
 		}
 
-		public void SetActive(IUnitAction action)
+		public void Start(IUnitAction action)
 		{
-			StopActive();
+			Stop();
 
 			if (action == null)
 			{
@@ -34,26 +34,26 @@
 			
 			if (_currentAction != null)
 			{
-				_currentAction.OnEnter(_unit);
+				_currentAction.Start(_unit);
 			}
 		}
-
-		public void StopActive()
-		{
-			if (_currentAction != null)
-			{
-				_currentAction.OnExit();
-			}
-			
-			_currentAction = null;
-		}
-
+		
 		public void Tick(float deltaTime)
 		{
 			if (_currentAction != null)
 			{
-				_currentAction.OnUpdate();
+				_currentAction.Tick(deltaTime);
 			}
+		}
+		
+		public void Stop()
+		{
+			if (_currentAction != null)
+			{
+				_currentAction.Stop();
+			}
+			
+			_currentAction = null;
 		}
 	}
 }
