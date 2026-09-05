@@ -19,5 +19,20 @@ namespace LordSheo.JJTK
 		{
 			return string.IsNullOrEmpty(source);
 		}
+		
+		public static string ToShortDisplayString(this int value)
+		{
+			if (value < 1_000)
+			{
+				return value.ToString();
+			}
+
+			if (value < 1_000_000)
+			{
+				return (value / 1_000f).ToString("F2") + "k";
+			}
+			
+			return (value / 1_000_000f).ToString("F2") + "m";
+		}
 	}
 }
