@@ -1,10 +1,5 @@
 ﻿namespace LordSheo.JJTK
 {
-	public enum ResourceType
-	{
-		gold,
-	}
-
 	public class InventoryItem
 	{
 		public string itemId;

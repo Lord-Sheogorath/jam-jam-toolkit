@@ -1,10 +1,9 @@
 ﻿namespace LordSheo.JJTK
 {
-	public interface IUnitAction
+	public interface IUnitAction : ITickable
 	{
-		void OnEnter(UnitController user);
-		void OnExit();
-		void OnUpdate();
+		void Start(UnitController user);
+		void Stop();
 
 		bool IsValid(UnitController user);
 	}

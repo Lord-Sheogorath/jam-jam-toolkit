@@ -18,6 +18,7 @@ namespace LordSheo.JJTK
 		public ITargetSystem TargetSystem => GetSystem<ITargetSystem>();
 		public ICombatSystem CombatSystem => GetSystem<ICombatSystem>();
 		public IUnitActionSystem ActionSystem => GetSystem<IUnitActionSystem>();
+		public IAbilitySystem AbilitySystem => GetSystem<IAbilitySystem>();
 
 		public Transform Root => root;
 		public Transform VisualRoot => visualRoot;
