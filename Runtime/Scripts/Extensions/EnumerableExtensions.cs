@@ -20,7 +20,7 @@ namespace LordSheo.JJTK
 
 		public static T Random<T>(this IList<T> source)
 		{
-			var index = UnityEngine.Random.Range(0, source.Count - 1);
+			var index = UnityEngine.Random.Range(0, source.Count);
 			return source[index];
 		}
 		public static void AddRange<T>(HashSet<T> source, IEnumerable<T> collection)
