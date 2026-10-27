@@ -12,7 +12,7 @@ namespace LordSheo.JJTK
 		{
 			if (_instance == null)
 			{
-				_instance = Resources.Load<T>("Singletons/" + nameof(T));
+				_instance = Resources.Load<T>("Singletons/" + typeof(T).Name);
 			}
 
 			return _instance;
